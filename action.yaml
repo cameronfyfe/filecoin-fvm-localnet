@@ -1,0 +1,32 @@
+name: "Filecoin Localnet Action"
+description: "Run a Filecoin localnet with Lotus and Boost"
+inputs:
+  compose-file: # id of input
+    description: "relative path to compose file(s)"
+    required: false
+    default: "./docker-compose.yaml"
+  compose-flags: # id of input
+    description: "additional options to pass to `docker-compose` command"
+    required: false
+    default: ""
+  down-flags: # id of input
+    description: "additional options to pass to `docker-compose down` command"
+    required: false
+    default: ""
+  services: # id of input
+    description: "services to perform docker-compose up"
+    required: false
+  up-flags: # id of input
+    description: "additional options to pass to `docker-compose up` command"
+    required: false
+    default: ""
+outputs:
+  wallet:
+    description: 'The address of the funded wallet'
+runs:
+  using: "node16"
+  main: "main.js"
+  post: "post.js"
+branding:
+  icon: anchor
+  color: blue
