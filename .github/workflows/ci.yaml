@@ -48,13 +48,9 @@ jobs:
       run: |
         npm install
         npm run pack
-#        mkdir -p dist/documentation
-#        mkdir -p dist/examples
         cp action.yml dist/
         cp README.md dist/
         cp LICENSE.txt dist/
-#        cp documentation/* dist/documentation/
-#        cp examples/* dist/examples/
 
     # Check for changes; this avoids publishing a new change to the
     # dist branch when we made a change to (for example) a unit test.
