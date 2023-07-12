@@ -1,8 +1,13 @@
 const core = require("@actions/core");
 const compose = require("docker-compose");
 const utils = require("./utils");
+const web3 = require('web3');
 
 try {
+
+  // Create a wallet to use
+  const wallet = web3.eth.accounts.create(web3.utils.randomHex(32));
+      
   const composeFiles = utils.parseComposeFiles(
     core.getMultilineInput("compose-file")
   );
@@ -27,11 +32,12 @@ try {
   promise
     .then(() => {
       console.log("compose started");
-      return compose.exec('lotus', `lotus send ${process.env.ADDRESS} 888`)
+      return compose.exec('lotus', `lotus send ${wallet.address} 888`)
     })
     .then(() => {
-      console.log("wallet funded");
-      core.setOutput("wallet", process.env.ADDRESS);
+      console.log("wallet funded:", wallet.address);
+      core.setOutput("wallet", wallet.address);
+      core.setOutput("privateKey", wallet.privateKey);
     })
     .catch((err) => {
       core.setFailed(`compose up failed ${JSON.stringify(err)}`);
