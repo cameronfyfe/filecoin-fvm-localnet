@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{js,json}\"",
     "check-format": "prettier --check \"**/*.{js,json}\"",
-    "pack": "npm run build && ncc build"      
+    "pack": "ncc build"      
   },
   "keywords": [],
   "author": "",
