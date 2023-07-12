@@ -27,20 +27,15 @@ try {
   promise
     .then(() => {
       console.log("compose started");
+      return compose.exec('lotus', `lotus send ${process.env.ADDRESS} 888`)
+    })
+    .then(() => {
+      console.log("wallet funded");
     })
     .catch((err) => {
       core.setFailed(`compose up failed ${JSON.stringify(err)}`);
     });
 
-  compose.exec('lotus', `lotus send ${process.env.ADDRESS} 888`)
-	.then(() => {
-      console.log("wallet funded");
-    })
-    .catch((err) => {
-      core.setFailed(`funding wallet failed failed ${JSON.stringify(err)}`);
-    });
-
-    
 } catch (error) {
   core.setFailed(error.message);
 }
