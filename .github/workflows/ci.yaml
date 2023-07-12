@@ -48,7 +48,7 @@ jobs:
       run: |
         npm install
         npm run pack
-        cp action.yml dist/
+        cp action.yaml dist/
         cp README.md dist/
         cp LICENSE.txt dist/
 
