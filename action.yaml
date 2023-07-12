@@ -4,7 +4,7 @@ inputs:
   compose-file: # id of input
     description: "relative path to compose file(s)"
     required: false
-    default: "./docker-compose.yml"
+    default: "./docker-compose.yaml"
   compose-flags: # id of input
     description: "additional options to pass to `docker-compose` command"
     required: false
