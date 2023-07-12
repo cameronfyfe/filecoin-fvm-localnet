@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@glif/filecoin-address": "^2.0.43",
+    "@vercel/ncc": "^0.36.1",
     "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
