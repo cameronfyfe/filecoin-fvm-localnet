@@ -7,6 +7,7 @@ try {
 
   // Create a wallet to use
   const wallet = web3.eth.accounts.create(web3.utils.randomHex(32));
+  console.log("wallet created:", wallet.address);
       
   const composeFiles = utils.parseComposeFiles(
     core.getMultilineInput("compose-file")
