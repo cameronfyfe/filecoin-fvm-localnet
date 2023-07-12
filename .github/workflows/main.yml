@@ -14,4 +14,6 @@ jobs:
         with:
           node-version: 16
       - run: npm install
-      - uses: ./
+      - id: localnet
+        uses: ./
+      - run: echo "Address:" ${{ steps.localnet.outputs.filAddress }}

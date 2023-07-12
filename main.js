@@ -2,12 +2,15 @@ const core = require("@actions/core");
 const compose = require("docker-compose");
 const utils = require("./utils");
 const web3 = require('web3');
+const { newDelegatedEthAddress } = require('@glif/filecoin-address')
 
 try {
 
   // Create a wallet to use
   const wallet = web3.eth.accounts.create(web3.utils.randomHex(32));
-  console.log("wallet created:", wallet.address);
+  const ethAddress = wallet.address;
+  const filAddress = newDelegatedEthAddress(ethAddress, 't').toString());
+  console.log("wallet created:", filAddress, ethAddress);
       
   const composeFiles = utils.parseComposeFiles(
     core.getMultilineInput("compose-file")
@@ -33,11 +36,12 @@ try {
   promise
     .then(() => {
       console.log("compose started");
-      return compose.exec('lotus', `lotus send ${wallet.address} 888`)
+      return compose.exec('lotus', `lotus send ${filAddress} 888`)
     })
     .then(() => {
-      console.log("wallet funded:", wallet.address);
-      core.setOutput("wallet", wallet.address);
+      console.log("wallet funded:", filAddress, ethAddress);
+      core.setOutput("ethAddress", ethAddress);
+      core.setOutput("filAddress", filAddress);
       core.setOutput("privateKey", wallet.privateKey);
     })
     .catch((err) => {
