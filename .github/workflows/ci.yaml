@@ -32,8 +32,6 @@ jobs:
       contents: write
       packages: write
       actions: write
-      
-    outputs:
     steps:
     - name: Check out source
       uses: actions/checkout@v2
