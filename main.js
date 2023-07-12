@@ -31,6 +31,7 @@ try {
     })
     .then(() => {
       console.log("wallet funded");
+      core.setOutput("wallet", process.env.ADDRESS);
     })
     .catch((err) => {
       core.setFailed(`compose up failed ${JSON.stringify(err)}`);

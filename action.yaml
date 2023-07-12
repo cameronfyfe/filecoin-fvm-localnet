@@ -20,6 +20,9 @@ inputs:
     description: "additional options to pass to `docker-compose up` command"
     required: false
     default: ""
+outputs:
+  wallet:
+    description: 'The address of the funded wallet'
 runs:
   using: "node16"
   main: "main.js"
