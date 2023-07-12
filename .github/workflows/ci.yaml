@@ -1,0 +1,83 @@
+name: CI
+
+# Run this whenever there's an update to the master branch.
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  #
+  # Build (if there's a build step) and run tests to ensure that the
+  # new change in master is good.
+  #
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out source
+      uses: actions/checkout@v2
+
+    - name: Build and Test
+      run: |
+        npm ci
+        npm run build --if-present
+        npm test
+  #
+  # Publish the action to the `dist` branch
+  #
+  publish_action:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - name: Check out source
+      uses: actions/checkout@v2
+
+    # Check out the `dist` branch into the `dist` directory.
+    - name: Check out distribution branch
+      uses: actions/checkout@v2
+      with:
+        ref: 'dist'
+        path: 'dist'
+
+    # Run `npm run pack`, which uses @zeit/ncc to package the action
+    # into a single file.  Copy things that we want to publish out of
+    # the source directory and into the dist directory (which is where
+    # the dist branch is checked out.)
+    - name: Package
+      run: |
+        npm install
+        npm run pack
+#        mkdir -p dist/documentation
+#        mkdir -p dist/examples
+        cp action.yml dist/
+        cp README.md dist/
+        cp LICENSE.txt dist/
+#        cp documentation/* dist/documentation/
+#        cp examples/* dist/examples/
+
+    # Check for changes; this avoids publishing a new change to the
+    # dist branch when we made a change to (for example) a unit test.
+    # If there were changes made in the publish step above, then this
+    # will set the variable `has_changes` to `1` for subsequent steps.
+    - name: Check for changes
+      id: status
+      run: |
+        source ../.github/workflows/actions.sh
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "::set-output name=has_changes::1"
+        fi
+      working-directory: dist
+
+    # Commit the changes to the dist branch and push the changes up to
+    # GitHub.  (Replace the name and email address with your own.)
+    # This step only runs if the previous step set `has_changes` to `1`.
+    - name: Publish action
+      run: |
+        git add --verbose .
+        git config user.name 'CI User'
+        git config user.email 'ci@example.com'
+        git commit -m 'Update from CI'
+        git push origin dist
+      if: steps.status.outputs.has_changes == '1'
+      working-directory: dist
