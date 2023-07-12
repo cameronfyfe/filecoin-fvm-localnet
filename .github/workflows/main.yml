@@ -1,3 +1,5 @@
+name: Test Filecoin Localnet Github Action
+
 on:
   workflow_dispatch:
   pull_request:
