@@ -9,7 +9,7 @@ try {
   // Create a wallet to use
   const wallet = web3.eth.accounts.create(web3.utils.randomHex(32));
   const ethAddress = wallet.address;
-  const filAddress = newDelegatedEthAddress(ethAddress, 't').toString());
+  const filAddress = newDelegatedEthAddress(ethAddress, 't').toString();
   console.log("wallet created:", filAddress, ethAddress);
       
   const composeFiles = utils.parseComposeFiles(
@@ -36,7 +36,7 @@ try {
   promise
     .then(() => {
       console.log("compose started");
-      return compose.exec('lotus', `lotus send ${filAddress} 888`)
+      return compose.exec('lotus', `lotus send ${filAddress} 888`);
     })
     .then(() => {
       console.log("wallet funded:", filAddress, ethAddress);
