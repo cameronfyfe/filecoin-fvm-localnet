@@ -50,10 +50,10 @@ jobs:
     - name: Package
       run: |
         npm install
-	ncc build main.js
-	mv dist/index.js dist/main.js
-	ncc build post.js
-	mv dist/index.js dist/post.js
+        ncc build main.js
+        mv dist/index.js dist/main.js
+        ncc build post.js
+        mv dist/index.js dist/post.js
         cp action.yaml dist/
         cp README.md dist/
 
