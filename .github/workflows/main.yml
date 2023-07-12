@@ -4,6 +4,10 @@ on:
     branches:
       - main
 
+env:
+  ADDRESS: t410fuir2myuqqjlacl3o3dyw362mx4iftiav3kkb4ja
+  PRIVATE_KEY: afea7f0655db527a92e2d4b4121f340f58dee4f44fe2ea67fcfdfa723f786a45
+  
 jobs:
   test-filecoin-action:
     runs-on: ubuntu-latest
