@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{js,json}\"",
     "check-format": "prettier --check \"**/*.{js,json}\"",
-    "pack": "ncc build"      
+    "pack": "ncc build"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
   "devDependencies": {
     "@glif/filecoin-address": "^2.0.43",
     "@vercel/ncc": "^0.36.1",
+    "crypto": "^1.0.1",
     "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
