@@ -50,7 +50,6 @@ jobs:
         npm run pack
         cp action.yaml dist/
         cp README.md dist/
-        cp LICENSE.txt dist/
 
     # Check for changes; this avoids publishing a new change to the
     # dist branch when we made a change to (for example) a unit test.
