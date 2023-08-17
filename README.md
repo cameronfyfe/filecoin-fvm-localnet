@@ -41,6 +41,30 @@ Ensure you have [Docker installed](https://docs.docker.com/get-docker/).
 
 Once the localnet is started, you can navigate the Boost UI at: `http://localhost:8080`. 
 
+## Make a Storage Deal
+
+These instructions are for simply submitting a 2kB storage deal from the default lotus wallet that's created using the boost client.
+
+Install `just` if not already installed.
+
+1. Initialize boost client and copy the default lotus wallet over to boost
+    ```bash
+    just boost-init
+    ```
+
+1. Add funds to market actor
+    ```bash
+    just fund-market-balance 100
+
+    # then wait for tx to go on chain (~1 min)
+    ```
+
+
+1. Submit storage deal
+    ```bash
+    just do-deal <start_epoch>
+    ```
+
 ## Metamask and Funding a Wallet
 
 ### Setting up Metamask

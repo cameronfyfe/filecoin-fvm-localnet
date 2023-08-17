@@ -114,6 +114,7 @@ services:
       - ./data/lotus:/var/lib/lotus:ro
       - ./data/lotus-miner:/var/lib/lotus-miner:ro
       - ./data/sample:/app/public:rw
+      - ./scripts:/app/scripts:ro
 
   booster-http:
     container_name: booster-http
@@ -178,3 +179,24 @@ services:
       - "com.docker-tc.enabled=1"
       - "com.docker-tc.delay=10ms"
       
+  client:
+    container_name: client
+    image: ${IMAGE}
+    stdin_open: true
+    depends_on:
+      lotus:
+        condition: service_healthy
+      lotus-miner:
+        condition: service_healthy
+      boost:
+        condition: service_healthy
+    environment:
+      - FULLNODE_API_INFO=http://lotus:1234
+      - LOTUS_API_LISTENADDRESS=http://lotus:1234
+      - LOTUS_PATH=/var/lib/lotus
+    restart: unless-stopped
+    logging: *default-logging
+    volumes:
+      - ./data/boost:/var/lib/boost:ro
+      - ./data/lotus:/var/lib/lotus:ro
+
